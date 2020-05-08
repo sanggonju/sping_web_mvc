@@ -19,7 +19,7 @@ public class HelloServlet extends HttpServlet {
         resp.getWriter().write("<head>");
         resp.getWriter().write("</head>");
         resp.getWriter().write("<body>");
-        resp.getWriter().write("<h1>Hello Servlet</h1>");
+        resp.getWriter().write("<h1>Hello, "+getServletContext().getAttribute("name")+"</h1>");
         resp.getWriter().write("</body>");
         resp.getWriter().write("</html>");
     }
@@ -34,4 +34,14 @@ public class HelloServlet extends HttpServlet {
     init()은 최초 요청시에만 호출됨.(init-doget)
     2번째 부터는 doGet만 호출됨.
     서버종료시  destroy() 가 호출된다.
-* */
+
+Connected to server
+contextInitialized
+init
+doGet
+destroy
+contextDestroyed
+Disconnected from server
+
+
+*/
