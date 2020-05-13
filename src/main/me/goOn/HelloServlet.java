@@ -18,6 +18,9 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws
             IOException {
 
+
+        //이런식으로  써야한다면 ROOT구조로 만들겠지만 최근에는
+        //모두 DispatcherServlet에 모든걸 처리한다.
         ApplicationContext context = (ApplicationContext)getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         HelloService helloService = context.getBean(HelloService.class);
 

@@ -14,14 +14,6 @@
     <param-value>me.goOn.AppConfig</param-value>
   </context-param>
 
-  <filter>
-    <filter-name>myFilter</filter-name>
-    <filter-class>me.goOn.MyFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>myFilter</filter-name>
-    <servlet-name>hello</servlet-name>
-  </filter-mapping>
 
  <!-- <listener>
     <listener-class>me.goOn.MyListener</listener-class>
@@ -35,17 +27,31 @@
   그리고 서블릿이 종료될 시점에 어플리케이션 컨텍스트를 제거해줌.
   이게 정확히 서블릿 리스너가 할수 있는일
   서블릿 컨텍스트의 라이프 사이클에 맞추어서 스프링이 제공해주는 애플리케이션 컨텍스트를 연동해주는 가장 핵심적인 리스너 ContextLoaderListener
-  ContextLoaderListener은 appicationContext를 만들어야함.-->
-
-
-
+  ContextLoaderListener은 appicationContext를 만들어 야함.-->
+  <!--
+    DispactcherServlet안에도 WebApplicationContext가 생성되지만 이것은 dispatcherServlet에서만 사용되며
+    다른 Servlet에서 공유될수 없음.
+    이 WebApplicationContext은 기존conextLoaderListener가 생성한 WebApplicationContext를 부모로 상속받게 된다.
+  -->
   <servlet>
-    <servlet-name>hello</servlet-name>
-    <servlet-class>me.goOn.HelloServlet</servlet-class>
+    <servlet-name>app</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>me.goOn.WebConfig</param-value>
+    </init-param>
   </servlet>
-
+  <!--2020 05 13 스프링 mvc 연동
+    Controller는 dispactcherServelt이 만드는 webApplicationContext에 Bean으로 등록되어야 하고
+    Service는 ContextLoaderListene가 만드는     webApplicationContext에에 Bean으로 등록되어야 한다.
+    그러면 AppConfig에 설정을 해주어야한다.
+  -->
   <servlet-mapping>
-    <servlet-name>hello</servlet-name>
-    <url-pattern>/hello</url-pattern>
+    <servlet-name>app</servlet-name>
+    <url-pattern>/app/*</url-pattern> <!--app밑으로 들어오는 모든 요청은 dispatcherServlet으로 요청이 들어온다.-->
   </servlet-mapping>
 </web-app>

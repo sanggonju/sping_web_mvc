@@ -14,14 +14,6 @@
     <param-value>me.goOn.AppConfig</param-value>
   </context-param>
 
-  <filter>
-    <filter-name>myFilter</filter-name>
-    <filter-class>me.goOn.MyFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>myFilter</filter-name>
-    <servlet-name>hello</servlet-name>
-  </filter-mapping>
 
  <!-- <listener>
     <listener-class>me.goOn.MyListener</listener-class>
@@ -41,16 +33,28 @@
     다른 Servlet에서 공유될수 없음.
     이 WebApplicationContext은 기존conextLoaderListener가 생성한 WebApplicationContext를 부모로 상속받게 된다.
   -->
-
-
-
   <servlet>
-    <servlet-name>hello</servlet-name>
-    <servlet-class>me.goOn.HelloServlet</servlet-class>
+    <servlet-name>app</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextClass</param-name>
+      <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </init-param>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>me.goOn.WebConfig</param-value>
+    </init-param>
   </servlet>
-
+  <!--2020 05 13 스프링 mvc 연동
+    Controller는 dispactcherServelt이 만드는 webApplicationContext에 Bean으로 등록되어야 하고
+    Service는 ContextLoaderListene가 만드는     webApplicationContext에에 Bean으로 등록되어야 한다.
+    그러면 AppConfig에 설정을 해주어야한다.
+  -->
   <servlet-mapping>
-    <servlet-name>hello</servlet-name>
-    <url-pattern>/hello</url-pattern>
+    <servlet-name>app</servlet-name>
+    <url-pattern>/app/*</url-pattern> <!--app밑으로 들어오는 모든 요청은 dispatcherServlet으로 요청이 들어온다.-->
   </servlet-mapping>
+
+  <!--현재 우리는 tomcat안에 spring을 넣은 구조
+  SpringBoot의 경우에는 boot안에 tomact을 심은 구조로 생각하면됨.-->
 </web-app>
