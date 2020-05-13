@@ -34,6 +34,11 @@
       <scope>provided</scope> <!--개발시에 사용가능  패키징시에는 제공 되지 않음. 톰켓 컨테이너에서 제공해줄것이기 때문에 런타임시에 주지 않아도 됨을 의미-->
     </dependency>
 
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-webmvc</artifactId>
+      <version>5.2.5.RELEASE</version>
+    </dependency>
   </dependencies>
 
   <build>

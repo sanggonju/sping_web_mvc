@@ -1,5 +1,8 @@
 package me.goOn;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,12 +17,17 @@ public class HelloServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws
             IOException {
+
+        ApplicationContext context = (ApplicationContext)getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
+        HelloService helloService = context.getBean(HelloService.class);
+
         System.out.println("doGet");
         resp.getWriter().write("<html>");
         resp.getWriter().write("<head>");
         resp.getWriter().write("</head>");
         resp.getWriter().write("<body>");
-        resp.getWriter().write("<h1>Hello, "+getServletContext().getAttribute("name")+"</h1>");
+        //resp.getWriter().write("<h1>Hello, "+getServletContext().getAttribute("name")+"</h1>");
+        resp.getWriter().write("<h1>Hello, "+helloService.getName()+"</h1>");
         resp.getWriter().write("</body>");
         resp.getWriter().write("</html>");
     }
