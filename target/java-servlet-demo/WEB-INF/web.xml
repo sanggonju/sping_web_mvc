@@ -41,6 +41,7 @@
       <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
     </init-param>
     <init-param>
+      
       <param-name>contextConfigLocation</param-name>
       <param-value>me.goOn.WebConfig</param-value>
     </init-param>
@@ -54,4 +55,7 @@
     <servlet-name>app</servlet-name>
     <url-pattern>/app/*</url-pattern> <!--app밑으로 들어오는 모든 요청은 dispatcherServlet으로 요청이 들어온다.-->
   </servlet-mapping>
+
+  <!--현재 우리는 tomcat안에 spring을 넣은 구조
+  SpringBoot의 경우에는 boot안에 tomact을 심은 구조로 생각하면됨.-->
 </web-app>
