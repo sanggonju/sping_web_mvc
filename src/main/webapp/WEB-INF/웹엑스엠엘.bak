@@ -35,7 +35,7 @@
   -->
   <servlet>
     <servlet-name>app</servlet-name>
-    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <servlet-class>org.springframework.web.servlet.DispatcherSer vlet</servlet-class>
     <init-param>
       <param-name>contextClass</param-name>
       <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
