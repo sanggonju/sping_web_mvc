@@ -13,10 +13,14 @@ public class WebApplication implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext servletContext){
         AnnotationConfigWebApplicationContext context = new AnnotationConfigWebApplicationContext();
+        //@EnableWebMVC를 설정할때 servletContext를 종종 참조하여 이렇게 해주지 않으면 제대로
+        //빈설정이 되지 않는다.
+        context.setServletContext(servletContext);
+        //==
         context.register(WebConfig.class);
-//        /context.refresh();
+        context.refresh();
 
-//        DispatcherServlet dispatcherServlet = new DispatcherServlet(context);
+
         ServletRegistration.Dynamic app =
                 servletContext.addServlet("app", new DispatcherServlet(context));
         app.addMapping("/app/*");
